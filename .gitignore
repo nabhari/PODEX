@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+.DS_Store
+# Jupyter
+.ipynb_checkpoints
+# data
+*.csv
+# OS
+.vscode/
