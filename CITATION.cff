@@ -1,0 +1,12 @@
+message: "If you use this software, please cite it as below."
+title: "PODEX: Population Diversity and Extinction Analysis"
+authors:
+  - family-names: “Abhari”
+    given-names: "Niloufar“
+    orcid: "https://orcid.org/0009-0003-7668-5499"
+version: 1.0.0
+date-released: 2025-12-02
+url: "https://github.com/nabhari/PODEX"
+repository-code: "https://github.com/nabhari/PODEX"
+license: MIT
+abstract: "PODEX provides tools to measure genetic diversity and rank populations under extinction risk. Includes heterozygosity/SSD calculations, Shapley values, and stepwise diversity-gain prioritization."
