@@ -9,5 +9,6 @@ version: 1.0.0
 date-released: 2026-10-24
 url: "https://github.com/nabhari/PODEX"
 repository-code: "https://github.com/nabhari/PODEX"
+doi: 10.5281/zenodo.23632940
 license: MIT
 abstract: "PODEX provides tools to measure genetic diversity and rank populations under extinction risk. Includes heterozygosity/SSD calculations, Shapley values, and stepwise diversity-gain prioritization."
