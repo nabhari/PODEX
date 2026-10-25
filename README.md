@@ -78,7 +78,7 @@ plot_iterative_cumulative_gain(iterative)
 ---
 ## 📘 Citation Requirements
 If you use this software in your work, please cite **both**:
-1. The GitHub repository, and
+1. Abhari N. PODEX: Population Diversity and Extinction Analysis. Zenodo; 2026. doi:10.5281/zenodo.23632940
 2. Measuring genetic diversity across populations — Abhari N, Colijn C, Mooers A, Tupper P (2024) PLoS Comput Biol 20(12): e1012651. https://doi.org/10.1371/journal.pcbi.1012651
 
 ---
