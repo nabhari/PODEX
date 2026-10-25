@@ -14,7 +14,7 @@ from podex.diversity import (
     plot_iterative_cumulative_gain
 )
 
-DATA_PATH = "example_data.csv"
+DATA_PATH = "podex/test_example.csv"
 POPS_COL_NAME = "pops"
 POP_SIZES = [17, 27, 43]
 EXTINCTION_PROBS = [0.9, 0.8, 0.1]

@@ -25,7 +25,8 @@ import matplotlib.cm as cm
 import random
 import seaborn as sns
 from tqdm import tqdm
-import shap
+# import shap
+import math
 
 
 #################################################
@@ -117,7 +118,7 @@ def Het_Pooling_mc_with_extinction(freqs, pop_size, ext_probs, n_samples=10000, 
     """
     rng = np.random.default_rng(random_state)
     n_pops, n_loci = freqs.shape
-    freqs_np = freqs.to_numpy()
+    freqs_np = np.asarray(freqs)
     pop_size = np.array(pop_size)
 
     het_values = []
@@ -154,19 +155,15 @@ def SSD_Pooling_with_pop_size(freqs, pop_size):
     float
         Count of loci with 0 < p_bar < 1 (size-weighted).
     """
-    pop_size = np.array(pop_size)
+    freqs_np = np.asarray(freqs)
+    pop_size = np.asarray(pop_size, dtype=float)
     total_n = pop_size.sum()
     if total_n == 0:
         return 0.0
 
-    score = 0
-    for col in freqs.columns:
-        weighted_avg = (freqs[col] * pop_size).sum() / total_n
-        if 0 < weighted_avg < 1:
-            score += 1
-
-    return score
-
+    pbar = (freqs_np.T @ pop_size) / total_n
+    eps = 1e-12
+    return float(np.sum((pbar > eps) & (pbar < 1 - eps)))
 
 def SSD_Pooling_mc_with_extinction(freqs, pop_size, ext_probs, n_samples=10000, random_state=None):
     """
@@ -267,7 +264,7 @@ def shapley_values_exact(freqs, pop_size, score_func):
             coalition.append(i)
 
     # Average over permutations
-    shap_values /= np.math.factorial(n)
+    shap_values /= math.factorial(n)
     shap_dict = {freqs.index[i]: shap_values[i] for i in range(n)}
     return shap_dict
 
@@ -466,7 +463,7 @@ def expected_diversity_gain_ranking(freqs,
             return SSD_Pooling_with_pop_size(freqs_sub, pop_size_sub)
 
         elif mode == "ssd_mc":
-            return SSD_Pooling_mc_with_extiction(
+            return SSD_Pooling_mc_with_extinction(
                 freqs_sub, pop_size_sub, ext_probs_sub,
                 n_samples=n_samples, random_state=rng
             )
@@ -495,10 +492,10 @@ def expected_diversity_gain_ranking(freqs,
         baseline_gains.append(H_hat - baseline_H)
 
     baseline_df = pd.DataFrame({
-        "Rank": range(1, n_pops + 1),
         "Population": freqs.index,
         "Gain": baseline_gains
-    }).sort_values("Gain", ascending=False)
+        }).sort_values("Gain", ascending=False).reset_index(drop=True)
+    baseline_df.insert(0, "Rank", range(1, n_pops + 1))
 
     print(baseline_df)
 
